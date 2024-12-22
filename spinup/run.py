@@ -1,3 +1,15 @@
+import os
+import sys
+
+import gym.envs
+
+# Get the folder path of the current file
+current_folder = os.path.dirname(os.path.abspath(__file__))
+
+# Add it to the module search path
+sys.path.append('/home/mike_1102/spinningup/spinningup')
+
+
 import spinup
 from spinup.user_config import DEFAULT_BACKEND
 from spinup.utils.run_utils import ExperimentGrid
@@ -12,6 +24,7 @@ import tensorflow as tf
 import torch
 from copy import deepcopy
 from textwrap import dedent
+
 
 
 # Command line args that will go to ExperimentGrid.run, and must possess unique
@@ -153,7 +166,7 @@ def parse_and_execute_grid_search(cmd, args):
 
     # Special handling for environment: make sure that env_name is a real,
     # registered gym environment.
-    valid_envs = [e.id for e in list(gym.envs.registry.all())]
+    valid_envs = [e for e in list(gym.envs.registry.keys())]
     assert 'env_name' in arg_dict, \
         friendly_err("You did not give a value for --env_name! Add one and try again.")
     for env_name in arg_dict['env_name']:

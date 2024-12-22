@@ -197,7 +197,7 @@ def trpo(env_fn, actor_critic=core.mlp_actor_critic, ac_kwargs=dict(), seed=0,
     """
 
     logger = EpochLogger(**logger_kwargs)
-    logger.save_config(locals())
+    logger.save_config(locals()) 
 
     seed += 10000 * proc_id()
     tf.set_random_seed(seed)
@@ -212,7 +212,7 @@ def trpo(env_fn, actor_critic=core.mlp_actor_critic, ac_kwargs=dict(), seed=0,
 
     # Inputs to computation graph
     x_ph, a_ph = core.placeholders_from_spaces(env.observation_space, env.action_space)
-    adv_ph, ret_ph, logp_old_ph = core.placeholders(None, None, None)
+    adv_ph, ret_ph, logp_old_ph = core.placeholders(None, None, None)   # advantage, ret=?;
 
     # Main outputs from computation graph, plus placeholders for old pdist (for KL)
     pi, logp, logp_pi, info, info_phs, d_kl, v = actor_critic(x_ph, a_ph, **ac_kwargs)
